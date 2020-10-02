@@ -36,7 +36,7 @@ def transformaEmMatriz(lista):
     G = [[0 for i in range(len(lista))] for i in range(len(lista))]
 
     for u in range(len(lista)):
-        for (v,w) in lista[i]:
-            G[u][v] == w
+        for (v,w) in lista[u]:
+            G[u][v] = w
 
     return G
