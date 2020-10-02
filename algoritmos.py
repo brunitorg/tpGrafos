@@ -86,17 +86,13 @@ def floydWarshall(grafo):
             else:  # adciona inf e None no restante da matriz
                 dist[i][j] = float('inf')
                 pred[i][j] = None
-    print("Dist:",dist)
-    print("Pred: ",pred)
 
+    # Aqui a mágica acontece
     for k in range(len(grafo)):  # vertice ponte para caminhos alternativos passando por k
         for i in range(len(grafo)):  # a partir de i
             for j in range(len(grafo)):  # a partir de j
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
                     pred[i][j] = pred[k][j]
-
-    print("Dist:", dist)
-    print("Pred: ", pred)
 
     return dist, pred

@@ -1,6 +1,6 @@
 import random
 
-def criarMatriz(vertices, arestas, pesoMin, pesoMax):
+def criarGrafoMatriz(vertices, arestas, pesoMin, pesoMax):
     G = [[0 for i in range(vertices)] for i in range(vertices)]
     i = 0
     while i < arestas:
@@ -14,7 +14,7 @@ def criarMatriz(vertices, arestas, pesoMin, pesoMax):
     return G
 
 
-def criarLista(vertices, arestas, pesoMin, pesoMax):
+def criarGrafoLista(vertices, arestas, pesoMin, pesoMax):
     G = [[] for i in range(vertices)]
     i = 0
     while i < arestas:
@@ -31,6 +31,7 @@ def criarLista(vertices, arestas, pesoMin, pesoMax):
                 G[v].append((u, peso))
                 i += 1
     return G
+
 
 def transformaEmMatriz(lista):
     G = [[0 for i in range(len(lista))] for i in range(len(lista))]

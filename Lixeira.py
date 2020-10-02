@@ -1,6 +1,6 @@
 import algoritmos
 import time
-import gerarGrafo
+import grafo
 
 G = [
     [(1,6),(2,2)],

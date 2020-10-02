@@ -1,7 +1,30 @@
-import gerarGrafo
+import grafo
 import algoritmos
 import time
 
+def testar():
+    grafoA(0, 6, grafo.criarGrafoLista(50, 500, 1, 100))
+    # grafoA(0, 49, grafo.criarGrafoLista(50, 500, 1, 100))
+    #grafoB(0, 49, grafo.criarGrafoLista(50, 1000, 1, 10))
+    # grafoC(0, 49, grafo.criarGrafoLista(100, 1000, 1, 10))
+    # grafoD(0, 49, grafo.criarGrafoLista(100, 5000, 1, 100))
+    # grafoE(0, 49, grafo.criarGrafoLista(500, 5000, 1, 10))
+    # grafoF(0, 49, grafo.criarGrafoLista(500, 10000, 1, 100))
+    # grafoG(0, 49, grafo.criarGrafoLista(1000, 10000, 1, 100))
+    # grafoH(0, 49, grafo.criarGrafoLista(1000, 50000, 1, 10))
+
+
+def recuperaCaminhoMatriz(pred, s,d):
+    caminho = []
+    caminho.append(s)
+
+    i=s
+    while pred[s][d] != s:
+        caminho.append(pred[i][d])
+        i = pred[i][d]
+    caminho.append(d)
+
+    return caminho
 
 def recuperaCaminhoLista(pred, d):
     caminho = []
@@ -12,122 +35,93 @@ def recuperaCaminhoLista(pred, d):
     caminho.reverse()
     return caminho
 
-def recuperaCaminhoMatriz(pred, t):
-    caminho = []
-    return caminho
 
-# def testar(alg, orig, dest):
-# grafoA(alg, orig, dest, gerarGrafo.criarLista(50, 500, 1, 100))
-# grafoB(alg, orig, dest, gerarGrafo.criarLista(50, 1000, 1, 10))
-# grafoC(alg, orig, dest)
-# grafoD(alg, orig, dest)
-# grafoE(alg, orig, dest)
-# grafoF(alg, orig, dest)
-# grafoG(alg, orig, dest)
-# grafoH(alg, orig, dest)
+def testeDijkstra(s, d, graph):
+    print("---------------Dijkstra---------------")
+    tempo = time.time()
+    dist, pred = algoritmos.dijkstra(graph, s)
+    tempo = time.time() - tempo
+    caminho = recuperaCaminhoLista(pred,d)
+    print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 
-def grafoA(a, s, d, graph):
-    if (a == 1):
-        tempo = time.time()
-        dist, pred = algoritmos.dijkstra(graph, s)
-        tempo = time.time() - tempo
-    elif a == 2:
-        tempo = time.time()
-        dist, pred = algoritmos.bellmanFord(graph, s)
-        tempo = time.time() - tempo
-    elif a == 3:
-        tempo = time.time()
-        matriz = gerarGrafo.transformaEmMatriz(graph)
-        dist, pred = algoritmos.floydWarshall(matriz)
-        tempo = time.time() - tempo
-
-    print("Caminho:", recuperaCaminhoLista(pred, d))
-    print("Custo: ", dist[len(dist) - 1])
-    print("Tempo: ", tempo)
+def testeBellmanFord(s, d, graph):
+    print("\n--------------BelmanFord--------------")
+    tempo = time.time()
+    dist, pred = algoritmos.bellmanFord(graph, s)
+    tempo = time.time() - tempo
+    caminho = recuperaCaminhoLista(pred, d)
+    print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 
-def grafoB(a, s, d, graph):
-    if (a == 1):
-        tempo = time.time()
-        dist, pred = algoritmos.dijkstra(graph, s)
-        tempo = time.time() - tempo
-    elif a == 2:
-        tempo = time.time()
-        dist, pred = algoritmos.bellmanFord(graph, s)
-        tempo = time.time() - tempo
-    elif a == 3:
-        tempo = time.time()
-        matriz = gerarGrafo.transformaEmMatriz(graph)
-        dist, pred = algoritmos.floydWarshall(matriz)
-        tempo = time.time() - tempo
+def testeFloydWarshall(s, d, matriz):
+    print("\n--------------FloydWarshall--------------")
+    tempo = time.time()
+    dist, pred = algoritmos.floydWarshall(matriz)
+    tempo = time.time() - tempo
+    caminho = recuperaCaminhoMatriz(pred,s,d)
+    print("Caminho: ", caminho, "\nCusto: ", dist[s][d], "\nTempo: ", tempo)
 
-    print("Caminho:", recuperaCaminhoLista(pred, d))
-    print("Custo: ", dist[len(dist) - 1])
-    print("Tempo: ", tempo)
+def grafoA(s, d, graph): #(50, 500, 1, 100)
+    testeDijkstra(s, d, graph)
 
+    testeBellmanFord(s, d, graph)
 
-def grafoC(alg, s, d):
-    grafo = gerarGrafo.criarLista(100, 1000, 1, 10)
-    if alg == 0:
-        dist, pred = algoritmos.dijkstra(grafo, s)
-    elif alg == 1:
-        dist, pred = algoritmos.bellmanFord(grafo, s)
-    elif alg == 2:
-        matriz = gerarGrafo.transformaEmMatriz(grafo)
-        dist, pred = algoritmos.floydWarshall(matriz)
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
 
+def grafoB(s, d, graph):
+    testeDijkstra(s, d, graph)
 
-def grafoD(alg, s, d):
-    grafo = gerarGrafo.criarLista(100, 5000, 1, 100)
-    if alg == 0:
-        dist, pred = algoritmos.dijkstra(grafo, s)
-    elif alg == 1:
-        dist, pred = algoritmos.bellmanFord(grafo, s)
-    elif alg == 2:
-        matriz = gerarGrafo.transformaEmMatriz(grafo)
-        dist, pred = algoritmos.floydWarshall(matriz)
+    testeBellmanFord(s, d, graph)
 
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
 
-def grafoE(alg, s, d):
-    grafo = gerarGrafo.criarLista(500, 5000, 1, 10)
-    if alg == 0:
-        dist, pred = algoritmos.dijkstra(grafo, s)
-    elif alg == 1:
-        dist, pred = algoritmos.bellmanFord(grafo, s)
-    elif alg == 2:
-        matriz = gerarGrafo.transformaEmMatriz(grafo)
-        dist, pred = algoritmos.floydWarshall(matriz)
+def grafoC(s, d, graph):
+    testeDijkstra(s, d, graph)
 
+    testeBellmanFord(s, d, graph)
 
-def grafoF(alg, s, d):
-    grafo = gerarGrafo.criarLista(500, 10000, 1, 100)
-    if alg == 0:
-        dist, pred = algoritmos.dijkstra(grafo, s)
-    elif alg == 1:
-        dist, pred = algoritmos.bellmanFord(grafo, s)
-    elif alg == 2:
-        matriz = gerarGrafo.transformaEmMatriz(grafo)
-        dist, pred = algoritmos.floydWarshall(matriz)
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
 
+def grafoD(s, d, graph):
+    testeDijkstra(s, d, graph)
 
-def grafoG(alg, s, d):
-    grafo = gerarGrafo.criarLista(1000, 10000, 1, 100)
-    if alg == 0:
-        dist, pred = algoritmos.dijkstra(grafo, s)
-    elif alg == 1:
-        dist, pred = algoritmos.bellmanFord(grafo, s)
-    elif alg == 2:
-        matriz = gerarGrafo.transformaEmMatriz(grafo)
-        dist, pred = algoritmos.floydWarshall(matriz)
+    testeBellmanFord(s, d, graph)
 
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
 
-def grafoH(alg, s, d):
-    grafo = gerarGrafo.criarLista(1000, 50000, 1, 10)
-    if alg == 0:
-        dist, pred = algoritmos.dijkstra(grafo, s)
-    elif alg == 1:
-        dist, pred = algoritmos.bellmanFord(grafo, s)
-    elif alg == 2:
-        matriz = gerarGrafo.transformaEmMatriz(grafo)
-        dist, pred = algoritmos.floydWarshall(matriz)
+def grafoE(s, d, graph):
+    testeDijkstra(s, d, graph)
+
+    testeBellmanFord(s, d, graph)
+
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
+
+def grafoF(s, d, graph):
+    testeDijkstra(s, d, graph)
+
+    testeBellmanFord(s, d, graph)
+
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
+
+def grafoG(s, d, graph):
+    testeDijkstra(s, d, graph)
+
+    testeBellmanFord(s, d, graph)
+
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
+
+def grafoH(s, d, graph):
+    testeDijkstra(s, d, graph)
+
+    testeBellmanFord(s, d, graph)
+
+    matriz = grafo.transformaEmMatriz(graph)
+    testeFloydWarshall(s, d, matriz)
