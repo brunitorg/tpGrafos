@@ -70,4 +70,4 @@ inicio = time.time()
 dist,pred = Algoritmos.bellmanComGet(G,0)
 fim = time.time() - inicio
 print("Com Get")
-print("Dist:\n",dist,"\nPred:\n",pred,"\nTempo: ",fim)
+print("Dist:\n",dist,"\nPred:\n",pred,"\nlalala: ",fim)
