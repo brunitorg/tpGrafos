@@ -4,6 +4,7 @@ import grafo
 import time
 import algoritmos
 testes.testar()
+
 # algoritmo = int(input("Escolha o Algoritmo:\n  "
 #       "1 - Digkstra\n  "
 #       "2 - Bellman-Ford\n  "
