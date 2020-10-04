@@ -2,11 +2,10 @@ import grafo
 import algoritmos
 import time
 
-def testar():
-    grafoA(0, 6, grafo.criarGrafoLista(50, 500, 1, 100))
-    # grafoA(0, 49, grafo.criarGrafoLista(50, 500, 1, 100))
-    #grafoB(0, 49, grafo.criarGrafoLista(50, 1000, 1, 10))
-    # grafoC(0, 49, grafo.criarGrafoLista(100, 1000, 1, 10))
+# def testar():
+#     grafoA(0, 45, grafo.criarGrafoLista(500,5000, 1, 10))
+#     grafoB(0, 49, grafo.criarGrafoLista(50, 1000, 1, 10))
+#     grafoC(0, 49, grafo.criarGrafoLista(100, 1000, 1, 10))
     # grafoD(0, 49, grafo.criarGrafoLista(100, 5000, 1, 100))
     # grafoE(0, 49, grafo.criarGrafoLista(500, 5000, 1, 10))
     # grafoF(0, 49, grafo.criarGrafoLista(500, 10000, 1, 100))
@@ -14,17 +13,19 @@ def testar():
     # grafoH(0, 49, grafo.criarGrafoLista(1000, 50000, 1, 10))
 
 
-def recuperaCaminhoMatriz(pred, s,d):
-    caminho = []
-    caminho.append(s)
+def recuperaCaminhoMatriz(pred, s, d):
+    walk = [s]
+    x = s
 
-    i=s
-    while pred[s][d] != s:
-        caminho.append(pred[i][d])
-        i = pred[i][d]
-    caminho.append(d)
+    for i in range(len(pred)):
+        if pred[x][d] != s and pred[x][d] not in walk:
+            walk.append(pred[x][d])
+            x = pred[x][d]
+            break
+    walk.append(d)
 
-    return caminho
+    return walk
+
 
 def recuperaCaminhoLista(pred, d):
     caminho = []
@@ -41,7 +42,7 @@ def testeDijkstra(s, d, graph):
     tempo = time.time()
     dist, pred = algoritmos.dijkstra(graph, s)
     tempo = time.time() - tempo
-    caminho = recuperaCaminhoLista(pred,d)
+    caminho = recuperaCaminhoLista(pred, d)
     print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 
@@ -59,16 +60,17 @@ def testeFloydWarshall(s, d, matriz):
     tempo = time.time()
     dist, pred = algoritmos.floydWarshall(matriz)
     tempo = time.time() - tempo
-    caminho = recuperaCaminhoMatriz(pred,s,d)
+    caminho = recuperaCaminhoMatriz(pred, s, d)
     print("Caminho: ", caminho, "\nCusto: ", dist[s][d], "\nTempo: ", tempo)
 
-def grafoA(s, d, graph): #(50, 500, 1, 100)
+
+def grafoA(s, d, graph):  # (50, 500, 1, 100)
     testeDijkstra(s, d, graph)
 
     testeBellmanFord(s, d, graph)
 
-    matriz = grafo.transformaEmMatriz(graph)
-    testeFloydWarshall(s, d, matriz)
+    testeFloydWarshall(s, d, grafo.transformaEmMatriz(graph))
+
 
 def grafoB(s, d, graph):
     testeDijkstra(s, d, graph)
@@ -78,6 +80,7 @@ def grafoB(s, d, graph):
     matriz = grafo.transformaEmMatriz(graph)
     testeFloydWarshall(s, d, matriz)
 
+
 def grafoC(s, d, graph):
     testeDijkstra(s, d, graph)
 
@@ -85,6 +88,7 @@ def grafoC(s, d, graph):
 
     matriz = grafo.transformaEmMatriz(graph)
     testeFloydWarshall(s, d, matriz)
+
 
 def grafoD(s, d, graph):
     testeDijkstra(s, d, graph)
@@ -94,6 +98,7 @@ def grafoD(s, d, graph):
     matriz = grafo.transformaEmMatriz(graph)
     testeFloydWarshall(s, d, matriz)
 
+
 def grafoE(s, d, graph):
     testeDijkstra(s, d, graph)
 
@@ -101,6 +106,7 @@ def grafoE(s, d, graph):
 
     matriz = grafo.transformaEmMatriz(graph)
     testeFloydWarshall(s, d, matriz)
+
 
 def grafoF(s, d, graph):
     testeDijkstra(s, d, graph)
@@ -110,6 +116,7 @@ def grafoF(s, d, graph):
     matriz = grafo.transformaEmMatriz(graph)
     testeFloydWarshall(s, d, matriz)
 
+
 def grafoG(s, d, graph):
     testeDijkstra(s, d, graph)
 
@@ -117,6 +124,7 @@ def grafoG(s, d, graph):
 
     matriz = grafo.transformaEmMatriz(graph)
     testeFloydWarshall(s, d, matriz)
+
 
 def grafoH(s, d, graph):
     testeDijkstra(s, d, graph)

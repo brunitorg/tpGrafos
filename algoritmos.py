@@ -69,28 +69,28 @@ def bellmanFord(grafo, s):
 # Implementação algoritmo Floyd-Warshall
 # Recebe matriz de Adjacencia e origem
 # Retorna matrizes dist e pred
-def floydWarshall(grafo):
+def floydWarshall(matriz):
     # Cria matrizes dist e prev
-    dist = [[float('inf') for i in range(len(grafo))] for j in range(len(grafo))]
-    pred = [[None for i in range(len(grafo))] for j in range(len(grafo))]
+    dist = [[float('inf') for i in range(len(matriz))] for j in range(len(matriz))]
+    pred = [[None for i in range(len(matriz))] for j in range(len(matriz))]
 
     # Preenche matrizes dist e pred
-    for i in range(len(grafo)):
-        for j in range(len(grafo)):
+    for i in range(len(matriz)):
+        for j in range(len(matriz)):
             if i == j:  # adciona 0 e None na diagonal principal de dist e prev
                 dist[i][j] = 0
                 pred[i][j] = None
-            elif grafo[i][j] > 0:
-                dist[i][j] = grafo[i][j]  # adiciona o peso a posicao i j na matriz
+            elif matriz[i][j] > 0:
+                dist[i][j] = matriz[i][j]  # adiciona o peso a posicao i j na matriz
                 pred[i][j] = i
             else:  # adciona inf e None no restante da matriz
                 dist[i][j] = float('inf')
                 pred[i][j] = None
 
     # Aqui a mágica acontece
-    for k in range(len(grafo)):  # vertice ponte para caminhos alternativos passando por k
-        for i in range(len(grafo)):  # a partir de i
-            for j in range(len(grafo)):  # a partir de j
+    for k in range(len(matriz)):  # vertice ponte para caminhos alternativos passando por k
+        for i in range(len(matriz)):  # a partir de i
+            for j in range(len(matriz)):  # a partir de j
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
                     pred[i][j] = pred[k][j]
