@@ -24,7 +24,7 @@ if s < 0:
     sys.exit("Origem deve ser maior ou igual a 0!")
 
 t = int(input("Destino: "))
-if t >= vertices or t <= s:
+if t >= vertices or t < 0 or t == s:
     sys.exit("Destino menor que origem ou maior que número de vertices do grafo!")
 
 
@@ -39,7 +39,7 @@ if algoritmo == 1:
     dist, pred = algoritmos.dijkstra(graph, s)
     tempo = time.time() - tempo
     caminho = algoritmos.recuperaCaminhoLista(pred, t)
-    print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
+    print("Origem: ",s ,"\nDestino: ",t,"Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 elif algoritmo == 2:
     print("\n--------------BelmanFord--------------")
@@ -49,7 +49,7 @@ elif algoritmo == 2:
     dist, pred = algoritmos.bellmanFord(graph, s)
     tempo = time.time() - tempo
     caminho = algoritmos.recuperaCaminhoLista(pred, t)
-    print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
+    print("Origem: ",s ,"\nDestino: ",t,"Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 elif algoritmo == 3:
     print("\n--------------FloydWarshall--------------")
@@ -59,8 +59,7 @@ elif algoritmo == 3:
     dist, pred = algoritmos.floydWarshall(matrix)
     tempo = time.time() - tempo
     caminho = algoritmos.recuperaCaminhoMatriz(pred, s, t)
-    print(pred)
-    print("Caminho: ", caminho, "\nCusto: ", dist[s][t], "\nTempo: ", tempo)
+    print("Origem: ",s ,"\nDestino: ",t,"\nCaminho: ", caminho, "\nCusto: ", dist[s][t], "\nTempo: ", tempo)
 
 
 print(":----------------Obrigado----------------: ")
