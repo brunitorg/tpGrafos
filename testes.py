@@ -6,35 +6,11 @@ import time
 #     grafoA(0, 45, grafo.criarGrafoLista(500,5000, 1, 10))
 #     grafoB(0, 49, grafo.criarGrafoLista(50, 1000, 1, 10))
 #     grafoC(0, 49, grafo.criarGrafoLista(100, 1000, 1, 10))
-    # grafoD(0, 49, grafo.criarGrafoLista(100, 5000, 1, 100))
-    # grafoE(0, 49, grafo.criarGrafoLista(500, 5000, 1, 10))
-    # grafoF(0, 49, grafo.criarGrafoLista(500, 10000, 1, 100))
-    # grafoG(0, 49, grafo.criarGrafoLista(1000, 10000, 1, 100))
-    # grafoH(0, 49, grafo.criarGrafoLista(1000, 50000, 1, 10))
-
-
-def recuperaCaminhoMatriz(pred, s, d):
-    walk = [s]
-    x = s
-
-    for i in range(len(pred)):
-        if pred[x][d] != s and pred[x][d] not in walk:
-            walk.append(pred[x][d])
-            x = pred[x][d]
-            break
-    walk.append(d)
-
-    return walk
-
-
-def recuperaCaminhoLista(pred, d):
-    caminho = []
-    i = d
-    while i != None:
-        caminho.append(i)
-        i = pred[i]
-    caminho.reverse()
-    return caminho
+#     grafoD(0, 49, grafo.criarGrafoLista(100, 5000, 1, 100))
+#     grafoE(0, 49, grafo.criarGrafoLista(500, 5000, 1, 10))
+#     grafoF(0, 49, grafo.criarGrafoLista(500, 10000, 1, 100))
+#     grafoG(0, 49, grafo.criarGrafoLista(1000, 10000, 1, 100))
+#     grafoH(0, 49, grafo.criarGrafoLista(1000, 50000, 1, 10))
 
 
 def testeDijkstra(s, d, graph):

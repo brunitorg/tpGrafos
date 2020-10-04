@@ -96,3 +96,29 @@ def floydWarshall(matriz):
                     pred[i][j] = pred[k][j]
 
     return dist, pred
+
+
+# Recupera caminho atravez da matriz de predecessores
+def recuperaCaminhoMatriz(pred, s, d):
+    walk = [s]
+    x = s
+
+    for i in range(len(pred)):
+        if pred[x][d] != s and pred[x][d] not in walk:
+            walk.append(pred[x][d])
+            x = pred[x][d]
+            break
+    walk.append(d)
+
+    return walk
+
+
+# Recupera caminho atravez da lista de predecessores
+def recuperaCaminhoLista(pred, d):
+    caminho = []
+    i = d
+    while i != None:
+        caminho.append(i)
+        i = pred[i]
+    caminho.reverse()
+    return caminho
