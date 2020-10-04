@@ -18,7 +18,7 @@ def testeDijkstra(s, d, graph):
     tempo = time.time()
     dist, pred = algoritmos.dijkstra(graph, s)
     tempo = time.time() - tempo
-    caminho = recuperaCaminhoLista(pred, d)
+    caminho = algoritmos.recuperaCaminhoLista(pred, d)
     print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 
@@ -27,7 +27,7 @@ def testeBellmanFord(s, d, graph):
     tempo = time.time()
     dist, pred = algoritmos.bellmanFord(graph, s)
     tempo = time.time() - tempo
-    caminho = recuperaCaminhoLista(pred, d)
+    caminho = algoritmos.recuperaCaminhoLista(pred, d)
     print("Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 
@@ -36,7 +36,7 @@ def testeFloydWarshall(s, d, matriz):
     tempo = time.time()
     dist, pred = algoritmos.floydWarshall(matriz)
     tempo = time.time() - tempo
-    caminho = recuperaCaminhoMatriz(pred, s, d)
+    caminho = algoritmos.recuperaCaminhoMatriz(pred, s, d)
     print("Caminho: ", caminho, "\nCusto: ", dist[s][d], "\nTempo: ", tempo)
 
 
