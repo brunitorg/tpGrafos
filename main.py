@@ -1,8 +1,7 @@
 # iniciar aplicação
-import grafo
-import time
-import algoritmos
+import funcoes
 import sys
+import time
 
 # Recebe valores para criar grafo
 vertices = int(input("Número de vértices: "))
@@ -11,6 +10,8 @@ pesoMin = int(input("Peso mínimo das arestas: "))
 pesoMax = int(input("Peso máxima das arestas: "))
 if vertices <= 0 or arestas <= 0 or pesoMin <= 0 or pesoMax <= 0:
     sys.exit("Valores devem ser maiores que 0!")
+
+imprimir = int(input("Deseja imprimir o grafo? 1 - Sim // 0 - Não: "))
 
 # Recebe o algoritmo a ser usado
 algoritmo = int(input("Escolha o Algoritmo:\n  1 - Digkstra\n  2 - Bellman-Ford\n  3 - Floyd-Warshall\n"))
@@ -29,33 +30,36 @@ if t >= vertices or t < 0 or t == s:
 print("Processando...")
 
 if algoritmo == 1:
+    graph = funcoes.criarGrafoLista(vertices, arestas, pesoMin, pesoMax)
+    if imprimir == 1:
+        print(graph)
     print("---------------Dijkstra---------------")
-    graph = grafo.criarGrafoLista(vertices, arestas, pesoMin, pesoMax)
-    print(graph)
     tempo = time.time()
-    dist, pred = algoritmos.dijkstra(graph, s)
+    dist, pred = funcoes.dijkstra(graph, s)
     tempo = time.time() - tempo
-    caminho = algoritmos.recuperaCaminhoLista(pred, t)
-    print("Origem: ", s, "\nDestino: ", t, "Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
+    caminho = funcoes.recuperaCaminhoLista(pred, s, t)
+    print("Origem: ", s, "\nDestino: ", t, "\nCaminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 elif algoritmo == 2:
+    graph = funcoes.criarGrafoLista(vertices, arestas, pesoMin, pesoMax)
+    if imprimir == 1:
+        print(graph)
     print("\n--------------BelmanFord--------------")
-    graph = grafo.criarGrafoLista(vertices, arestas, pesoMin, pesoMax)
-    print(graph)
     tempo = time.time()
-    dist, pred = algoritmos.bellmanFord(graph, s)
+    dist, pred = funcoes.bellmanFord(graph, s)
     tempo = time.time() - tempo
-    caminho = algoritmos.recuperaCaminhoLista(pred, t)
-    print("Origem: ", s, "\nDestino: ", t, "Caminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
+    caminho = funcoes.recuperaCaminhoLista(pred, s, t)
+    print("Origem: ", s, "\nDestino: ", t, "\nCaminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)
 
 elif algoritmo == 3:
+    matrix = funcoes.criarGrafoMatriz(vertices, arestas, pesoMin, pesoMax)
+    if imprimir == 1:
+        print(matrix)
     print("\n--------------FloydWarshall--------------")
-    matrix = grafo.criarGrafoMatriz(vertices, arestas, pesoMin, pesoMax)
-    print(matrix)
     tempo = time.time()
-    dist, pred = algoritmos.floydWarshall(matrix)
+    dist, pred = funcoes.floydWarshall(matrix)
     tempo = time.time() - tempo
-    caminho = algoritmos.recuperaCaminhoMatriz(pred, s, t)
+    caminho = funcoes.recuperaCaminhoMatriz(pred, s, t)
     print("Origem: ", s, "\nDestino: ", t, "\nCaminho: ", caminho, "\nCusto: ", dist[s][t], "\nTempo: ", tempo)
 
 print(":----------------Obrigado----------------: ")
