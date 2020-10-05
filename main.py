@@ -42,11 +42,12 @@ if algoritmo == 1:
 
 elif algoritmo == 2:
     graph = funcoes.criarGrafoLista(vertices, arestas, pesoMin, pesoMax)
+    arestas = funcoes.getArestas(graph)
     if imprimir == 1:
         print(graph)
     print("\n--------------BelmanFord--------------")
     tempo = time.time()
-    dist, pred = funcoes.bellmanFord(graph, s)
+    dist, pred = funcoes.bellmanFord(graph, s, arestas)
     tempo = time.time() - tempo
     caminho = funcoes.recuperaCaminhoLista(pred, s, t)
     print("Origem: ", s, "\nDestino: ", t, "\nCaminho: ", caminho, "\nCusto: ", dist[len(dist) - 1], "\nTempo: ", tempo)

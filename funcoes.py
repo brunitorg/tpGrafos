@@ -1,12 +1,8 @@
 # implementação dos algoritmos solicitados no TP
-
+import random
 # Implementação algoritmo dijkstra
 # Recebe lista de Adjacencia e origem
 # Retorna dist e pred
-
-import time
-import random
-
 def dijkstra(grafo, s):
 
     # chama função para gerar dist e pred
@@ -38,7 +34,7 @@ def dijkstra(grafo, s):
 # Implementação algoritmo BellmanFord
 # Recebe lista de Adjacencia e origem
 # Retorna dist e pred
-def bellmanFord(grafo, s):
+def bellmanFord(grafo, s,arestas):
 
     #chama função para gerar dist e pred
     dist,pred = gerarDistPredLista(len(grafo))
@@ -47,16 +43,25 @@ def bellmanFord(grafo, s):
 
     for i in range(len(grafo)):
         trocou = False
-        for vertice in range(len(grafo)):
-            if grafo[vertice]:
-                for tupla in grafo[vertice]:
-                    if dist[tupla[0]] > dist[vertice] + tupla[1]:
-                        dist[tupla[0]] = dist[vertice] + tupla[1]
-                        pred[tupla[0]] = vertice
-                        trocou = True
-
+        for e in arestas:
+            if dist[e[1]] > dist[e[0]] + e[2]:
+                dist[e[1]] = dist[e[0]] + e[2]
+                pred[e[1]] = e[0]
+                trocou = True
         if not trocou:
             break
+    # for i in range(len(grafo)):
+    #     trocou = False
+    #     for vertice in range(len(grafo)):
+    #         if grafo[vertice]:
+    #             for tupla in grafo[vertice]:
+    #                 if dist[tupla[0]] > dist[vertice] + tupla[1]:
+    #                     dist[tupla[0]] = dist[vertice] + tupla[1]
+    #                     pred[tupla[0]] = vertice
+    #                     trocou = True
+    #
+    #     if not trocou:
+    #         break
 
     return dist, pred
 
@@ -119,15 +124,13 @@ def recuperaCaminhoMatriz(pred, s, d):
 
 # Recupera caminho atravez da lista de predecessores
 def recuperaCaminhoLista(pred, s,d):
-    walk = [d]
-
+    walk = []
     aux = d
     while aux != s:
-        walk.append(pred[aux])
+        walk.append(aux)
         aux = pred[aux]
-
+    walk.append(s)
     walk.reverse()
-
     return walk
 
 def criarGrafoMatriz(vertices, arestas, pesoMin, pesoMax):
@@ -170,29 +173,9 @@ def transformaEmMatriz(lista):
 
     return G
 
-def testeDijkstra(s, d, graph):
-    print("---------------Dijkstra---------------")
-    tempo = time.time()
-    dist, pred = dijkstra(graph, s)
-    caminho = recuperaCaminhoLista(pred,s, d)
-    tempo = time.time() - tempo
-    print("Caminho: ", caminho, "\nCusto: ", dist[d], "\nTempo: ", tempo)
-
-
-def testeBellmanFord(s, d, graph):
-    print("\n--------------BelmanFord--------------")
-    tempo = time.time()
-    dist, pred = bellmanFord(graph, s)
-    caminho = recuperaCaminhoLista(pred, s,d)
-    tempo = time.time() - tempo
-    print("Caminho: ", caminho, "\nCusto: ", dist[d], "\nTempo: ", tempo)
-
-
-def testeFloydWarshall(s, d, grafo):
-    print("\n--------------FloydWarshall--------------")
-    matriz = transformaEmMatriz(grafo)
-    tempo = time.time()
-    dist, pred = floydWarshall(matriz)
-    caminho = recuperaCaminhoMatriz(pred, s, d)
-    tempo = time.time() - tempo
-    print("Caminho: ", caminho, "\nCusto: ", dist[s][d], "\nTempo: ", tempo)
+def getArestas(lista):
+    arestas = []
+    for i in range(len(lista)):
+        for tupla in lista[i]:
+            arestas.append((i,tupla[0],tupla[1]))
+    return arestas
