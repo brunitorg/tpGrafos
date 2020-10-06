@@ -50,18 +50,6 @@ def bellmanFord(grafo, s,arestas):
                 trocou = True
         if not trocou:
             break
-    # for i in range(len(grafo)):
-    #     trocou = False
-    #     for vertice in range(len(grafo)):
-    #         if grafo[vertice]:
-    #             for tupla in grafo[vertice]:
-    #                 if dist[tupla[0]] > dist[vertice] + tupla[1]:
-    #                     dist[tupla[0]] = dist[vertice] + tupla[1]
-    #                     pred[tupla[0]] = vertice
-    #                     trocou = True
-    #
-    #     if not trocou:
-    #         break
 
     return dist, pred
 
@@ -164,6 +152,7 @@ def criarGrafoLista(vertices, arestas, pesoMin, pesoMax):
                 i += 1
     return G
 
+#utilizada nos testes para converter o grafo de lista de adj para matriz de adj e usar o memso grafo nos 3 algoritmos
 def transformaEmMatriz(lista):
     G = [[0 for i in range(len(lista))] for i in range(len(lista))]
 
@@ -173,6 +162,7 @@ def transformaEmMatriz(lista):
 
     return G
 
+#usado para gerar lista de arestas para facilitar a utilização do algoritmo de Bellman-Ford
 def getArestas(lista):
     arestas = []
     for i in range(len(lista)):
